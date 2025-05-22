@@ -3,15 +3,18 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Eye, EyeOff, Mail, User, Lock, CheckCircle2 } from "lucide-react"
+import { Eye, EyeOff, Mail, User, Lock, CheckCircle2, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { signUp } from "@/lib/auth-client"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 export default function RegisterForm() {
+  const router = useRouter();
+  const [isPending, setIsPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [formData, setFormData] = useState({
@@ -25,6 +28,7 @@ export default function RegisterForm() {
     email: "",
     password: "",
     confirmPassword: "",
+    server: "",
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +47,7 @@ export default function RegisterForm() {
       email: "",
       password: "",
       confirmPassword: "",
+      server: "",
     }
 
     // Validation du nom
@@ -82,18 +87,20 @@ export default function RegisterForm() {
         email: formData.email,
         password: formData.password,
       }, {
-        onRequest: () => { },
-        onResponse: () => { },
+        onRequest: () => { setIsPending(true) },
+        onResponse: () => { setIsPending(false) },
         onError: (ctx) => {
-          toast.error(ctx.error.message);
+          setErrors((prev) => ({ ...prev, server: ctx.error.message }))
         },
-        onSuccess: () => { }
+        onSuccess: () => {
+          toast.success("Registration successful. Welcome ! 🔥")
+          router.push("/")
+        }
       })
     } else {
       console.log("Form has errors")
     }
   }
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
@@ -103,6 +110,7 @@ export default function RegisterForm() {
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4 mb-4">
+            {errors.server && <p className="mt-1 text-sm text-red-500">{errors.server}</p>}
             <div className="space-y-2">
               <Label htmlFor="name">Nom</Label>
               <div className="relative">
@@ -197,7 +205,13 @@ export default function RegisterForm() {
           </CardContent>
           <CardFooter>
             <Button type="submit" className="w-full">
-              S'inscrire
+              {isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                </>
+              ) : (
+                "S'inscrire"
+              )}
             </Button>
           </CardFooter>
         </form>

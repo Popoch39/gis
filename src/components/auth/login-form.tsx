@@ -8,12 +8,18 @@ import { Label } from "@/components/ui/label"
 import { signIn } from "@/lib/auth-client"
 import { useState } from "react"
 import Link from "next/link"
+import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 export default function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
 
+  const router = useRouter()
+
+  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,12 +33,15 @@ export default function LoginForm({
       password
     },
       {
-        onRequest: () => { },
-        onResponse: () => { },
+        onRequest: () => { setIsPending(true) },
+        onResponse: () => { setIsPending(false) },
         onError: (ctx) => {
           setError(ctx.error.message);
         },
-        onSuccess: () => { }
+        onSuccess: () => {
+          toast.success("Login successful. Welcome back ! 👋")
+          router.push("/")
+        }
       }
     )
   }
@@ -75,7 +84,13 @@ export default function LoginForm({
                 <Input id="password" name="password" type="password" required className={error ? "border-red-500" : ""} onChange={() => setError(null)} />
               </div>
               <Button type="submit" className="w-full">
-                Login
+                {isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  </>
+                ) : (
+                  "Login"
+                )}
               </Button>
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">
