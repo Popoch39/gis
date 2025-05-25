@@ -1,10 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 
-export function withAuth<T extends { params: unknown } = { params: unknown }>(
-	handler: (req: NextRequest, context: T) => Promise<NextResponse>,
-) {
-	return async (req: NextRequest, context: T) => {
+export function withAuth(handler: (req: NextRequest, context: any) => Promise<NextResponse>) {
+	return async (req: NextRequest, context: any) => {
 		const session = await auth.api.getSession({
 			headers: req.headers,
 		});

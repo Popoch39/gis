@@ -1,5 +1,5 @@
-import { LucideIcon } from "lucide-react";
-import { IControl, Map as MaplibreMap } from "maplibre-gl";
+import type { LucideIcon } from "lucide-react";
+import type { IControl, Map as MaplibreMap } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
@@ -134,7 +134,7 @@ class CustomMapLibreButton implements IControl {
 	}
 
 	onRemove(): void {
-		if (this._container && this._container.parentNode) {
+		if (this._container && this._container?.parentNode) {
 			this._container.parentNode.removeChild(this._container);
 		}
 		this._map = undefined;
