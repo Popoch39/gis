@@ -1,22 +1,8 @@
-"use client"
+"use client";
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  Loader2,
-  LogOut,
-  Moon,
-  Sparkles,
-  Sun,
-} from "lucide-react"
+import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, Loader2, LogOut, Moon, Sparkles, Sun } from "lucide-react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,58 +11,58 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar"
-import { useTheme } from "next-themes"
-import { signOut, } from "@/lib/auth-client"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { UserInterface } from "@/types/user"
+} from "@/components/ui/dropdown-menu";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { signOut } from "@/lib/auth-client";
+import type { userType } from "@/types/user";
+import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export function NavUser(user: UserInterface) {
-  const { isMobile } = useSidebar()
-  const { theme, setTheme } = useTheme()
+export function NavUser(user: userType) {
+  const { isMobile } = useSidebar();
+  const { theme, setTheme } = useTheme();
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
 
   const handleModeToggle = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
-  }
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   const handleSignOut = async () => {
     await signOut({
       fetchOptions: {
-        onRequest: () => { setIsPending(true) },
-        onResponse: () => { setIsPending(false) },
+        onRequest: () => {
+          setIsPending(true);
+        },
+        onResponse: () => {
+          setIsPending(false);
+        },
         onError: (ctx) => {
           console.log(ctx.error);
         },
         onSuccess: () => {
-          router.push("/auth/login")
-        }
-      }
+          router.push("/auth/login");
+        },
+      },
     });
-  }
+  };
 
   const test = async () => {
     await fetch("/api/emails/send", { method: "POST" });
-  }
+  };
 
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer">
+            <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer">
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.image ?? ""} alt={user.name} />
-                <AvatarFallback className="rounded-lg">{user.name[0]} {user.name[1]}</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {user.name[0]} {user.name[1]}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
@@ -85,8 +71,7 @@ export function NavUser(user: UserInterface) {
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg" side={isMobile
-            ? "bottom" : "right"} align="end" sideOffset={4}>
+          <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg" side={isMobile ? "bottom" : "right"} align="end" sideOffset={4}>
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
@@ -121,9 +106,7 @@ export function NavUser(user: UserInterface) {
                 Notifications
               </DropdownMenuItem>
               <DropdownMenuItem onMouseDown={handleModeToggle}>
-                {theme === "dark" ?
-                  <Moon /> :
-                  <Sun />}
+                {theme === "dark" ? <Moon /> : <Sun />}
                 {theme === "dark" ? "Dark" : "Light"} Mode
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -142,5 +125,5 @@ export function NavUser(user: UserInterface) {
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }
