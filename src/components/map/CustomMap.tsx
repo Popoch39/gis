@@ -11,6 +11,7 @@ import maplibregl, {
 import "maplibre-gl/dist/maplibre-gl.css";
 import useMapStore from "@/stores/mapStore";
 import mapButtons from "./mapButtons";
+import * as turf from "@turf/turf";
 
 export function CustomMap() {
 	const mapRef = useRef<HTMLDivElement>(null);

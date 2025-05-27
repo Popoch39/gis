@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { ZodError } from "zod";
 import { ok, err } from "neverthrow";
-import { ApiError, type ApiResult, createApiError } from "@/types/api-types";
+import { type ApiError, type ApiResult, createApiError } from "@/types/api-types";
 import type { RequestValidation } from "@/lib/api-handler";
 
 export async function validateRequest(
