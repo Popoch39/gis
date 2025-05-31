@@ -9,5 +9,12 @@
       "tag": "0000_postgis",
       "breakpoints": true
     },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1748614592199,
+      "tag": "0001_long_squadron_sinister",
+      "breakpoints": true
+    }
   ]
 }

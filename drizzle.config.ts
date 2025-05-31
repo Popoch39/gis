@@ -1,13 +1,12 @@
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
-  schema: "./src/db/schemas",
-  out: "./drizzle",
-  dialect: "postgresql",
-  dbCredentials: {
-    url: process.env.DATABASE_URL as string,
-  },
-  extensionsFilters: ["postgis"],
-  schemaFilter: ["public"],
-  tablesFilter: ["*"],
+	schema: "./src/db/schemas",
+	out: "./drizzle",
+	dialect: "postgresql",
+	dbCredentials: {
+		url: process.env.DATABASE_URL as string,
+	},
+	extensionsFilters: ["postgis"],
+	schemaFilter: ["public"],
 });
