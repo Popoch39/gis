@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm";
 import { layerTable } from "@/db/schemas/layer-schema";
 import { handleApiError } from "@/lib/auth-wrapper";
 import { db } from "@/lib/db";
@@ -16,6 +17,17 @@ export class LayerService {
 	static async all() {
 		try {
 			const layers = await db.select().from(layerTable);
+			return layers;
+		} catch (error) {
+			handleApiError(error);
+		}
+	}
+
+	static async getByUserId(userId: string) {
+		try {
+			const layers = await db.query.layerTable.findMany({
+				where: eq(layerTable.userId, userId),
+			});
 			return layers;
 		} catch (error) {
 			handleApiError(error);
