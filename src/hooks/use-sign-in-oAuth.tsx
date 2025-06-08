@@ -1,10 +1,9 @@
-import { signIn } from "@/lib/auth-client"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { toast } from "sonner"
+import { signIn } from "@/lib/auth-client";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface OauthProps {
-  provider: "google" | "github" | "discord"
+  provider: "google" | "github" | "discord";
 }
 
 export default function useSignInOAuth() {
@@ -16,17 +15,20 @@ export default function useSignInOAuth() {
       callbackURL: "/",
       errorCallbackURL: "/auth/login/error",
       fetchOptions: {
-        onRequest: () => { setIsOAuthPending(true) },
-        onResponse: () => { setIsOAuthPending(false) },
+        onRequest: () => {
+          setIsOAuthPending(true);
+        },
+        onResponse: () => {
+          setIsOAuthPending(false);
+        },
         onError: (ctx) => {
           console.log(ctx.error);
-          toast.error(ctx.error.message)
+          toast.error(ctx.error.message);
         },
-        onSuccess: () => {
-        }
-      }
-    })
-  }
+        onSuccess: () => { },
+      },
+    });
+  };
 
-  return { handleSignIn, isOAuthPending }
+  return { handleSignIn, isOAuthPending };
 }

@@ -9,3 +9,9 @@ export const validateLayer = z.object({
 	name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
 	userId: z.string().min(1, "L'utilisateur est requis"),
 });
+
+export const createLayerForm = z.object({
+	name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
+});
+
+export type createLayerFormType = z.infer<typeof createLayerForm>;

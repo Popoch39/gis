@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  postgis:
+    container_name: postgis
+    image: postgis/postgis
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gis_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data:

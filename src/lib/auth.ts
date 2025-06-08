@@ -21,7 +21,7 @@ export const auth = betterAuth({
 		enabled: true,
 		requireEmailVerification: true,
 		sendResetPassword: async ({ user, url }) => {
-			await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/emails/send", {
+			await fetch(process.env.NEXT_PUBLIC_API_URL + "/emails/send", {
 				method: "POST",
 				body: JSON.stringify({
 					firstName: user.name,
@@ -37,7 +37,7 @@ export const auth = betterAuth({
 		autoSignInAfterVerification: true,
 		sendVerificationEmail: async ({ user, url }) => {
 			const updatedUrl = `${url}?verified=true`;
-			await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/emails/verify", {
+			await fetch(process.env.NEXT_PUBLIC_API_URL + "/emails/verify", {
 				method: "POST",
 				body: JSON.stringify({
 					firstName: user.name,

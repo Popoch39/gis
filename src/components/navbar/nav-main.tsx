@@ -12,19 +12,22 @@ import {
 	SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+
+type itemType = {
+	title: string;
+	url?: string;
+	onClick?: () => void;
+	icon?: LucideIcon;
+};
+
 export function NavMain({
 	items,
 }: {
 	items: {
 		title: string;
-		url: string;
 		icon?: LucideIcon;
 		isActive?: boolean;
-		items?: {
-			title: string;
-			url: string;
-			onClick?: () => void;
-		}[];
+		items?: itemType[];
 	}[];
 }) {
 	return (
@@ -45,9 +48,18 @@ export function NavMain({
 								<SidebarMenuSub>
 									{item.items?.map((subItem) => (
 										<SidebarMenuSubItem key={subItem.title}>
-											<SidebarMenuSubButton asChild>
-												<div onMouseDown={subItem.onClick}>
-													<span>{subItem.title}</span>
+											<SidebarMenuSubButton asChild className="cursor-pointer" onMouseDown={subItem.onClick ? subItem.onClick : () => {}}>
+												<div className="flex flex-row w-full">
+													{subItem.icon && <subItem.icon />}
+													{subItem.onClick ? (
+														<div onMouseDown={subItem.onClick}>
+															<span>{subItem.title}</span>
+														</div>
+													) : (
+														<Link href={subItem.url || ""}>
+															<span>{subItem.title}</span>
+														</Link>
+													)}
 												</div>
 											</SidebarMenuSubButton>
 										</SidebarMenuSubItem>

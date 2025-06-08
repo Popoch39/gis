@@ -2,7 +2,6 @@ import { pointTable } from "@/db/schemas/point-schema";
 import { handleApiError } from "@/lib/auth-wrapper";
 import { db } from "@/lib/db";
 import type { createPointType } from "@/types/features/point";
-import { sql } from "drizzle-orm";
 
 export class PointService {
 	static async store(payload: createPointType) {
