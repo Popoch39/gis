@@ -1,3 +1,4 @@
+import MapSidebarComponent from "@/components/map-navbar/map-sidebar-component";
 import { CustomMap } from "@/components/map/CustomMap";
 import { auth } from "@/lib/auth";
 import LayoutSidebar from "@/providers/sidebar-provider";
@@ -15,10 +16,13 @@ export default async function Home() {
   }
 
   return (
-    <LayoutSidebar user={session.user as userType}>
-      <div className="h-screen bg-gray-500">
-        <CustomMap />
-      </div>
-    </LayoutSidebar>
+    <>
+      <LayoutSidebar user={session.user as userType}>
+        <MapSidebarComponent />
+        <div className="h-screen bg-gray-500">
+          <CustomMap />
+        </div>
+      </LayoutSidebar>
+    </>
   );
 }

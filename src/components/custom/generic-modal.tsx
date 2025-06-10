@@ -7,10 +7,11 @@ import { useEffect } from "react";
 const GenericModal = () => {
 	const { isOpen, content, closeDialog, clearContent } = useModalStore();
 
-	console.log("louis is open", isOpen);
-
 	const handleOpenChange = (open: boolean): void => {
 		if (!open) {
+			setTimeout(() => {
+				clearContent();
+			}, 150);
 			closeDialog();
 		}
 	};

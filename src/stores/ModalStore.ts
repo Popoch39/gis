@@ -20,10 +20,11 @@ export const useModalStore = create<ModalStoreInterface>((set) => ({
 			isOpen: true,
 		}),
 
-	closeDialog: () =>
+	closeDialog: () => {
 		set({
 			isOpen: false,
-		}),
+		});
+	},
 
 	updateContent: (content) => set({ content }),
 	clearContent: () => set({ content: undefined }),

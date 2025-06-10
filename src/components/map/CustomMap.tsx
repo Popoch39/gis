@@ -46,28 +46,28 @@ export function CustomMap() {
         style: "https://api.maptiler.com/maps/hybrid/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL",
         center: [2.3522, 48.8568], // paris
         zoom: 6, // starting zoom
-      })
-        .addControl(
-          new maplibregl.NavigationControl({
-            visualizePitch: true,
-            showZoom: true,
-            showCompass: true,
-          }),
-        )
-        .addControl(
-          new AttributionControl({
-            compact: true,
-          }),
-        )
-        .addControl(
-          new GeolocateControl({
-            positionOptions: {
-              enableHighAccuracy: true,
-            },
-            trackUserLocation: true,
-          }),
-        )
-        .addControl(new LogoControl({ compact: false }));
+      });
+      // .addControl(
+      //   new maplibregl.NavigationControl({
+      //     visualizePitch: true,
+      //     showZoom: true,
+      //     showCompass: true,
+      //   }),
+      // )
+      // .addControl(
+      //   new AttributionControl({
+      //     compact: true,
+      //   }),
+      // )
+      // .addControl(
+      //   new GeolocateControl({
+      //     positionOptions: {
+      //       enableHighAccuracy: true,
+      //     },
+      //     trackUserLocation: true,
+      //   }),
+      // )
+      // .addControl(new LogoControl({ compact: false }));
 
       const scale = new ScaleControl({
         maxWidth: 80,

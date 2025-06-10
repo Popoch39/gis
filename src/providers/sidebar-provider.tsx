@@ -1,4 +1,5 @@
 "use client";
+import { MapSidebar } from "@/components/map-navbar/map-sidebar";
 import { AppSidebar } from "@/components/navbar/app-sidebar";
 import { SidebarSkeleton } from "@/components/navbar/skeleton";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
