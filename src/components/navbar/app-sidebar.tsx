@@ -9,7 +9,6 @@ import { useModalStore } from "@/stores/ModalStore";
 import CreateLayerModal from "../ui/modals/create-layer-modal";
 import { useQuery } from "@tanstack/react-query";
 import { LayerClientService } from "@/client/endpoints/layer";
-import { LayerType } from "@/types/layer";
 import { Skeleton } from "../ui/skeleton";
 import { Alert, AlertDescription } from "../ui/alert";
 import { Button } from "../ui/button";
@@ -19,7 +18,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
 	const {
 		data: layers = [],
-		error,
 		isLoading,
 		isError,
 		refetch,

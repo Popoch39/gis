@@ -18,6 +18,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
 	(response) => response,
 	(error: AxiosError) => {
+		/* eslint-disable  @typescript-eslint/no-explicit-any */
 		const message = (error.response?.data as any)?.message || error.message || "Une erreur est survenue";
 		return Promise.reject(new Error(message));
 	},

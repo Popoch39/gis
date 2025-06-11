@@ -1,6 +1,4 @@
-"use client";
 import SignOutButton from "@/components/auth/sign-out-button";
-import useMapStore from "@/stores/mapStore";
 
 export default async function ProfilePage() {
 	return (

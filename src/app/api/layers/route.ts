@@ -1,13 +1,12 @@
-import { auth } from "@/lib/auth";
 import { handleApiError, withAuth } from "@/lib/auth-wrapper";
 import { LayerService } from "@/services/LayerService";
 import { validateLayer } from "@/types/layer";
 import { type NextRequest, NextResponse } from "next/server";
 
-export const POST = withAuth(async (req: NextRequest, ctx) => {
+export const POST = withAuth(async (req: NextRequest, { session }) => {
 	try {
 		const body = await req.json();
-		const user = ctx.session.user;
+		const user = session.user;
 		const payload = {
 			...body,
 			userId: user.id,
@@ -20,7 +19,7 @@ export const POST = withAuth(async (req: NextRequest, ctx) => {
 	}
 });
 
-export const GET = withAuth(async (req: NextRequest, ctx) => {
+export const GET = withAuth(async () => {
 	try {
 		const layers = await LayerService.all();
 		return NextResponse.json({ layers, message: "Couches récupérées avec succès" }, { status: 200 });

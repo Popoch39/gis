@@ -3,12 +3,12 @@ import { auth, type SessionType } from "./auth";
 import { ZodError } from "zod";
 
 type ctxType<T = unknown> = {
-	params: T;
+	params: Promise<T>;
 	session: SessionType;
 };
 
 export function withAuth<T = unknown>(handler: (req: NextRequest, context: ctxType<T>) => Promise<NextResponse>) {
-	return async (req: NextRequest, context: { params: T }) => {
+	return async (req: NextRequest, context: { params: Promise<T> }) => {
 		const session = await auth.api.getSession({
 			headers: req.headers,
 		});
@@ -17,7 +17,7 @@ export function withAuth<T = unknown>(handler: (req: NextRequest, context: ctxTy
 			return NextResponse.json({ error: "Unauthorized", message: "You must be logged in to access this resource" }, { status: 401 });
 		}
 
-		return handler(req, { params: context.params as T, session });
+		return handler(req, { params: context.params, session });
 	};
 }
 

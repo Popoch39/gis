@@ -1,10 +1,8 @@
 "use client";
-import { MapSidebar } from "@/components/map-navbar/map-sidebar";
 import { AppSidebar } from "@/components/navbar/app-sidebar";
 import { SidebarSkeleton } from "@/components/navbar/skeleton";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useSession } from "@/lib/auth-client";
-import type { userType } from "@/types/user";
 
 export default function LayoutSidebar({ children }: { children: React.ReactNode }) {
 	const { data: session } = useSession();

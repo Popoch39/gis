@@ -27,7 +27,7 @@ const CreateLayerModal = () => {
 
 	const onSubmit = async (data: createLayerFormType) => {
 		try {
-			const res = await apiClient.post<LayerType>("/layers", data);
+			await apiClient.post<LayerType>("/layers", data);
 			queryClient.invalidateQueries({ queryKey: ["layers"] });
 			reset();
 			closeDialog();
