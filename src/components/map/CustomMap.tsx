@@ -39,7 +39,7 @@ export function CustomMap() {
 			const map = new maplibregl.Map({
 				attributionControl: false,
 				container: "map",
-				style: "https://api.maptiler.com/maps/satellite/?key=pMW8vpQwd0MS8jOpIvCU#1.0/0.00000/0.00000",
+				style: "https://api.maptiler.com/maps/satellite/style.json?key=pMW8vpQwd0MS8jOpIvCU",
 				center: [2.3522, 48.8568], // paris
 				zoom: 6, // starting zoom
 			});
